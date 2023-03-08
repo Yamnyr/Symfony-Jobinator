@@ -6,6 +6,7 @@ use App\Repository\JobRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: JobRepository::class)]
@@ -19,22 +20,27 @@ class Job
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 255)]
+    #[Groups('csv')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 100, max: 10000)]
+    #[Groups('csv')]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Groups('csv')]
     private ?bool $published = null;
 
     #[ORM\ManyToOne(inversedBy: 'jobs')]
     #[ORM\JoinColumn(nullable: false)]
     #[Gedmo\Blameable(on: 'create')]
+    #[Groups('csv')]
     private ?User $owner = null;
 
     #[ORM\Column]
+    #[Groups('csv')]
     private ?\DateTimeImmutable $createdAt;
 
     public function __construct()

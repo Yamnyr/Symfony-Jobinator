@@ -71,4 +71,13 @@ class JobRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findBySince(\DateTimeInterface $since): array
+    {
+        $queryBuilder = $this->createQueryBuilder('j')
+            ->where('j.updatedAt >= :since')
+            ->setParameter('since', $since);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

@@ -37,8 +37,8 @@ class PostulerController extends AbstractController
                 ]);
 
             $mailer->send($email);
-            return $this->redirectToRoute('app_job_show', ['id' => $id]);
 
+            return $this->redirectToRoute('app_job_show', ['id' => $id]);
         }
 
         return $this->render('postuler/index.html.twig', [
