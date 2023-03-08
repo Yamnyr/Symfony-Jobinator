@@ -6,6 +6,8 @@ use App\Repository\JobRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 #[ORM\Entity(repositoryClass: JobRepository::class)]
 class Job
@@ -30,6 +32,7 @@ class Job
 
     #[ORM\ManyToOne(inversedBy: 'jobs')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Gedmo\Blameable(on: 'create')]
     private ?User $owner = null;
 
     #[ORM\Column]
