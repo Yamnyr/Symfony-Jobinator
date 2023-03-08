@@ -13,7 +13,6 @@ class JobVoter extends Voter
     public const DELETE = 'JOB_DELETE';
     public const SHOW = 'JOB_VIEW';
 
-
     protected function supports(string $attribute, mixed $subject): bool
     {
         // replace with your own logic
@@ -24,7 +23,6 @@ class JobVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
-
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
         /*if (!$user instanceof UserInterface) {
@@ -36,9 +34,10 @@ class JobVoter extends Voter
         switch ($attribute) {
             case self::EDIT:
             case self::DELETE:
-            if ($user instanceof UserInterface) {
-                return $job->getOwner() === $user;
-            }
+                if ($user instanceof UserInterface) {
+                    return $job->getOwner() === $user;
+                }
+                // no break
             case self::SHOW:
                 return $job->isPublished();
         }
