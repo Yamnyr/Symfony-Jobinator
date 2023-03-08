@@ -9,12 +9,12 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        {{ form(postulerForm)}}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/Users/waro0002/symfony/tp/tp2-jobinator/src/Controller/PostulerController.php'|file_link(0) }}">src/Controller/PostulerController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/Users/waro0002/symfony/tp/tp2-jobinator/templates/postuler/index.html.twig'|file_link(0) }}">templates/postuler/index.html.twig</a></code></li>
-    </ul>
+        <div class="d-flex flex-row-reverse">
+            <button type="submit" class="btn btn-primary">S'inscrire</button>
+        </div>
+
+        {{ form_end(postulerForm) }}
 </div>
 {% endblock %}

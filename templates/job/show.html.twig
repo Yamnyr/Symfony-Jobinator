@@ -3,7 +3,9 @@
 {% block title %}{{ job.title }}{% endblock %}
 
 {% block body %}
-    <h1>{{ job.title}}</h1>
+    <div>
+        <h1>{{ job.title}} <a type="button" class="btn btn-outline" href="/postuler/{{ job.id }}">Postuler</a></h1>
+    </div>
 
     <p>
         Créée le {{ job.createdAt|date('d/m/Y') }}
