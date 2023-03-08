@@ -1,0 +1,42 @@
+name: CI
+
+on: [ push ]
+
+jobs:
+    ci:
+        name: Intégration continue
+        runs-on: ubuntu-latest
+        steps:
+            -   name: Checkout
+                uses: actions/checkout@v3
+
+            -   name: Installation de PHP et composer
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: 8.1
+
+            -   name: Récupération du chemin du cache Composer
+                id: composer-cache
+                run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+            -   name: Cache des dépendances composer
+                uses: actions/cache@v3
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+                    restore-keys: ${{ runner.os }}-composer-
+
+            -   name: Installation des dépendances du projet
+                run: composer install --prefer-dist --no-ansi --no-interaction --no-progress
+
+            -   name: Vérification du code PHP
+                run: vendor/bin/php-cs-fixer fix --diff --dry-run
+
+            -   name: Vérification du Twig
+                run: bin/console lint:twig templates
+
+            -   name: Vérification du YAML
+                run: bin/console lint:yaml config
+
+            -   name: Exécution des tests
+                run: composer test

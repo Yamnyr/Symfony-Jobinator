@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des offres d'emploi{% endblock %}
+
+{% block body %}
+    <h1>Liste des offres d'emploi</h1>
+
+    <div class="mb-3 mt-3">
+        <form method="get" action="{{ path('app_job_public_index') }}" class="form">
+            <input class="form-control" type="text" placeholder="Rechercher..." name="search" aria-label="Search" value="{{ app.request.get('search') }}">
+        </form>
+    </div>
+
+    {% for job in jobs %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title"><a href="{{ path('app_job_show', {id: job.id}) }}">{{ job.title }}</a></h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Créée le {{ job.createdAt|date('d/m/Y') }}</h6>
+                </div>
+                <p class="card-text">{{ job.description|u.truncate(300, '...') }}</p>
+            </div>
+        </div>
+    {% else %}
+        <p>Aucune offre publiée pour le moment.</p>
+    {% endfor %}
+{% endblock %}

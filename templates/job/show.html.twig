@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ job.title }}{% endblock %}
+
+{% block body %}
+    <h1>{{ job.title}}</h1>
+
+    <p>
+        Créée le {{ job.createdAt|date('d/m/Y') }}
+    </p>
+
+    <p>
+        {{ job.description|nl2br }}
+    </p>
+{% endblock %}

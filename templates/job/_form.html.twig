@@ -1,0 +1,7 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    <div class="d-flex flex-row-reverse">
+        <button class="btn btn-primary">{{ button_label|default('Créer') }}</button>
+    </div>
+{{ form_end(form) }}
